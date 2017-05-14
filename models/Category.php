@@ -10,22 +10,11 @@ class Category
     {
 
         $db = Db::getConnection();
-        
-        try {
-        
-            foreach($db->query('SELECT * from category') as $row) {
-                print_r($row);
-            }
-            $db = null;
-            } 
-        catch (PDOException $e) {
-                print "Error!: " . $e->getMessage() . "<br/>";
-                die();
-        }
-        
+
         $categoryList = array();
 
-        $result = $db->query('SELECT * from category');
+        $result = $db->query('SELECT id, name FROM category '
+                . 'ORDER BY sort_order ASC');
 
         $i = 0;
         while ($row = $result->fetch()) {
